@@ -6,8 +6,6 @@ de la penitencia en el fugue.
 ******************************************************************************/
 #include "SPC_inc"
 
-const int Muerte_MAX_LVL_IGNORAR_PENA        = 5;
-
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////// private functions ///////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
@@ -62,8 +60,7 @@ int FiltroPasaBajosIntervaloEntrePerdones_getEstado( string pcId )
     // Si es un PJ nuevo, inicializar el estado del filtro como si viniera muriendo una vez por semana.
     if( estado == 0 ) {
 //        SendMessageToPC( GetFirstPC(), "Filtro: inicializacion de " + pcId );
-        //estado = 604800;  // = 7dias * 24horas * 60minutos * 60segundos
-        estado = 302400;  // = La mitad
+        estado = 604800;  // = 7dias * 24horas * 60minutos * 60segundos
         SetCampaignInt( "Death", estadoRef, estado );
     }
 
@@ -105,13 +102,6 @@ void ajustarPenaEspera( string pcId, object oPC )
     El resultado es guardado para ser usado la proxima vez que el sujeto muera.
     Nota: Se asume que 'sujeto' es un PJ. */
 {
-
-    // Para Levels menores de 6 no hay pena de Fugue.
-    int sujetoLvl = GetHitDice( oPC );
-    if (sujetoLvl <= Muerte_MAX_LVL_IGNORAR_PENA) {
-        return;
-    }
-
     int instanteActual = getTimeInMinutes();
 
     // obtener y actualizar instanteUltimoPerdon en la DB
@@ -148,17 +138,10 @@ int getPenaEspera( string pcId, object sujeto )
     Nota: No altera nada excepto cuando inicializa el filtro pero eso es
     transparente para el usuario.*/
 {
-    // Para Levels menores de 6 no hay pena de Fugue.
-    int sujetoLvl = GetHitDice( sujeto );
-    if (sujetoLvl <= Muerte_MAX_LVL_IGNORAR_PENA) {
-        return 0;
-    }
-
     float intervaloEntrePerdonesSuavizado = IntToFloat( FiltroPasaBajosIntervaloEntrePerdones_getEstado( pcId ) );
 
     // calcula la pena (en segundos para que resulte un minutos de espera si muere una vez cada dos semanas
-    // float penaEspera = 60.0 * 1209600.0 / intervaloEntrePerdonesSuavizado; // 1209600 = segundos en dos semanas
-    float penaEspera = 60.0 * 604800.0 / intervaloEntrePerdonesSuavizado; // 604800 = segundos en 1 semana
+    float penaEspera = 60.0 * 1209600.0 / intervaloEntrePerdonesSuavizado; // 1209600 = segundos en dos semanas
 
     // pagar pena de espara con xpTransitoria
     int xpTransitoriaPorMil = GetLocalInt( sujeto, SPC_xpTransitoriaPorMil_VN );
@@ -166,7 +149,7 @@ int getPenaEspera( string pcId, object sujeto )
 
     int penaEsperaRedondeada = FloatToInt( penaEspera );
     // aplica el tope a la pena
-    int topePenaEspera = 60 * sujetoLvl;
+    int topePenaEspera = 60*GetHitDice( sujeto );
     if( penaEsperaRedondeada > topePenaEspera )
         penaEsperaRedondeada = topePenaEspera;
 
