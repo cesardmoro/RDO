@@ -26,15 +26,15 @@ void RestMeUp( int vidaAnterior, int temporizador )
         ExecuteScript("prc_rest", OBJECT_SELF);
 
         // si se medita o duerme en un area segura que no esta en un poblado amigable, se pierde el 9% de la experiencia acumulada
-        /*if( GetLocalInt( GetArea(OBJECT_SELF), SPC_seAplicaPenaDescanso_PN) ) {
-            SisPremioCombate_quitarPorcentajeXpTransitoria( OBJECT_SELF, 9 );
-            SendMessageToPC( OBJECT_SELF, "Meditar dentro de una carpa o taberna aislada resta un 9% a la experiencia transitoria acumulada desde el último descanzo en poblacion no hostil." );
-
+        if( GetLocalInt( GetArea(OBJECT_SELF), SPC_seAplicaPenaDescanso_PN) ) {
+           // SisPremioCombate_quitarPorcentajeXpTransitoria( OBJECT_SELF, 9 );
+          // SendMessageToPC( OBJECT_SELF, "Meditar dentro de una carpa o taberna aislada resta un 9% a la experiencia transitoria acumulada desde el último descanzo en poblacion no hostil." );
+ 
         // si se medita en una mansion de Mordenkainen, se pierde el 6% de la experiencia transitoria acumulada
         } else if( GetTag( GetArea( OBJECT_SELF ) ) == "MordenkainensMagnificentMansion" ) {
-            SisPremioCombate_quitarPorcentajeXpTransitoria( OBJECT_SELF, 6 );
-            SendMessageToPC( OBJECT_SELF, "Meditar dentro de una mansion de Mordenkainen resta un 6% a la experiencia transitoria acumulada desde el último descanso en poblacion no hostil." );
-        }*/  
+            //SisPremioCombate_quitarPorcentajeXpTransitoria( OBJECT_SELF, 6 );
+        //    SendMessageToPC( OBJECT_SELF, "Meditar dentro de una mansion de Mordenkainen resta un 6% a la experiencia transitoria acumulada desde el último descanso en poblacion no hostil." );
+        } 
 
     }
 }

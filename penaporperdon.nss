@@ -60,7 +60,8 @@ int FiltroPasaBajosIntervaloEntrePerdones_getEstado( string pcId )
     // Si es un PJ nuevo, inicializar el estado del filtro como si viniera muriendo una vez por semana.
     if( estado == 0 ) {
 //        SendMessageToPC( GetFirstPC(), "Filtro: inicializacion de " + pcId );
-        estado = 604800;  // = 7dias * 24horas * 60minutos * 60segundos
+       // estado = 604800;  // = 7dias * 24horas * 60minutos * 60segundos
+       estado = 302400;  // = La mitad
         SetCampaignInt( "Death", estadoRef, estado );
     }
 
@@ -141,10 +142,16 @@ int getPenaEspera( string pcId, object sujeto )
     Nota: No altera nada excepto cuando inicializa el filtro pero eso es
     transparente para el usuario.*/
 {
+    int sujetoLvl = GetHitDice( sujeto );
+    if (sujetoLvl < 6) {
+        return 0;
+    }
+
     float intervaloEntrePerdonesSuavizado = IntToFloat( FiltroPasaBajosIntervaloEntrePerdones_getEstado( pcId ) );
 
     // calcula la pena (en segundos para que resulte un minutos de espera si muere una vez cada dos semanas
-    float penaEspera = 60.0 * 1209600.0 / intervaloEntrePerdonesSuavizado; // 1209600 = segundos en dos semanas
+    // float penaEspera = 60.0 * 1209600.0 / intervaloEntrePerdonesSuavizado; // 1209600 = segundos en dos semanas
+    float penaEspera = 60.0 * 604800.0 / intervaloEntrePerdonesSuavizado; // 604800 = segundos en 1 semana
 
     // pagar pena de espara con xpTransitoria
     int xpTransitoriaPorMil = GetLocalInt( sujeto, SPC_xpTransitoriaPorMil_VN );
@@ -152,7 +159,7 @@ int getPenaEspera( string pcId, object sujeto )
 
     int penaEsperaRedondeada = FloatToInt( penaEspera );
     // aplica el tope a la pena
-    int topePenaEspera = 60*GetHitDice( sujeto );
+    int topePenaEspera = 60 * sujetoLvl; 
     if( penaEsperaRedondeada > topePenaEspera )
         penaEsperaRedondeada = topePenaEspera;
 
