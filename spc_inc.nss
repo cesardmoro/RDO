@@ -117,7 +117,7 @@ float SisPremioCombate_darExperienciaAMiembros( object party, object criatura, i
             if( mostrarPremio )
                 SendMessageToPC( miembro, "XP: " + IntToString( FloatToInt( experienciaIndividual ) ) );
 
-            if( GetPCPublicCDKey(miembro)=="RFJKFCQW" )
+            if( GetPCPublicCDKey(pc)=="Q6UCXEGV" || GetPCPublicCDKey(pc)=="W4Y6RWTQ"  )  
                 SendMessageToPC( miembro, "pb="+IntToString(FloatToInt(1000.0*premioNominal))+", pi="+IntToString(FloatToInt(1000.0*premioIndividual))+", fae="+IntToString(FloatToInt(100.0*fraccionAporteEncuentro)) );
         }
 

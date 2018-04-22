@@ -117,7 +117,7 @@ void main()
         // persistencia de la vida
         //Entradas_AjusteDeVida_onClientEnter( oPC );   // se reemplazó por la funcionalidad de "Mod_onWorldEnter"
 
-        string sID = GetName(oPC);
+        string sID = GetName(oPC); 
         if(GetStringLength(sID) > 0)
             sID = GetStringLeft(sID, 25);
 

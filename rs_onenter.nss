@@ -230,8 +230,8 @@ void RS_onPcEntersArea( object pc ) {
 
         // guardar el estado actualizado. Lo usa la rutina de muestreo y generacion de spawn sucesivo.
         SetLocalInt( OBJECT_SELF, RS_estado_VN, estadoNuevo );
-
-        if( GetPCPublicCDKey(pc)=="RFJKFCQW" )
+ 
+        if( GetPCPublicCDKey(pc)=="Q6UCXEGV" || GetPCPublicCDKey(pc)=="W4Y6RWTQ"  ) 
             SendMessageToPC( pc, "CR="+IntToString(GetLocalInt( OBJECT_SELF, RS_crArea_PN ))+", fta="+IntToString(GetLocalInt(OBJECT_SELF,RS_factorTransitoArea_PN))+", sge="+sge+", tipo="+tipoSpawn );
     }
 

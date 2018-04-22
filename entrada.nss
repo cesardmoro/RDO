@@ -23,7 +23,7 @@ void main() {
         RS_onPcEntersArea( enteringObject );
 
         if( !GetIsDM( enteringObject ) ) {
-            SisPremioCombate_onPjEnterArea( enteringObject );
+            SisPremioCombate_onPjEnterArea( enteringObject ); 
 
             Muerte_onPjEntersArea( enteringObject );
 

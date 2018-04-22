@@ -5,6 +5,7 @@ int GetIsAllowedDM( object oPC )
     string sCd = GetPCPublicCDKey( oPC );
     //Lista de cdkeys:
     if( sCd != "UCPVMDD7"    // Hildor
+        && sCd != "Q6UCXEGV" // Cesar - DM
         && sCd != "USN56ADB" // Athanasius - DM
         //&& sCd != "8AYCHKX1" // Bando-DM
         //&& sCd != "4YN3DHH9" // BlackMage - DM  (esteban)
@@ -33,7 +34,7 @@ int GetIsAllowedDM( object oPC )
         //&& sCd != "CINY8ZJB" // Obsidian - DM
         //&& sCd != "YYRNT7CG" // Silverscale - DM
         //&& sCd != "FQCAQ49E" // Zeratul - DM
-        && sCd != "TGBZA76G" // Just-K
+        && sCd != "TGBZA76G" // Just-K 
 	&& sCd != "CDEZKN63" // Garuda
 	&& sCd != "GX1WBS13" // Lopeloco
 	&& sCd != "PNQ7PFQJ" // Vermis Luctus
